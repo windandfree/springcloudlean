@@ -1,0 +1,15 @@
+server:
+  port: 80 #该服务的端口号
+
+spring:
+  application:
+    name: cloud-consumerconsul-service #该服务的名称
+###配置consul注册中心的地址
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+
+

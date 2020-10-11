@@ -1,0 +1,32 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: cloud-hystrix-order-service
+
+eureka:
+  client:
+    register-with-eureka: false
+#    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka #同时注入两个注册中心
+
+#设置OpenFeign客户端超时时间(OpenFeign默认支持ribbon)
+ribbon:
+  #指的是建立连接所用的时问，适用于网络状况正常的情况下，两端连接所用的时问
+  ConnectTimeout: 3000
+  #指的是建立连接后从服务提供方读取到可用资源所用的时间
+  ReadTimeout: 6000
+  #注意以上ribbon的超时配置好像不生效，可能是版本原因，需再次查证。
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        #连接到目标的时间，此处会收到注册中心启动中的影响。设置为3秒钟，如果注册中心有明显的不在线，基本是毫秒级熔断拒绝
+        connectTimeout: 3000
+        #获取目标连接后执行的最长时间，设置为32秒，即服务最长时
+        readTimeout: 10000

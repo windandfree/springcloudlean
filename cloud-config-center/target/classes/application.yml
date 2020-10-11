@@ -1,0 +1,31 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          #uri:  git@github.com:windandfree/Springcloud-config.git #在githup上的仓库名称
+          uri:  https://github.com/windandfree/Springcloud-config.git #在githup上的仓库名称
+          search-paths: #搜索目录
+            - Springcloud-config
+      label: master #分支
+
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://localhost:7001/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'
+
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest

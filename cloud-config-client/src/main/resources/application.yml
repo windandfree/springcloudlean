@@ -1,0 +1,2 @@
+server:
+  port: 3377 #配置文件生效顺序为 外部文件==>application==>bootstrap
